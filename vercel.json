@@ -1,0 +1,22 @@
+{
+   "version": 2,
+   "builds": [
+      {
+         "src": "server.ts",
+         "use": "@vercel/node"
+      }
+   ],
+   "routes": [
+      {
+         "src": "/api/(.*)",
+         "dest": "/api/$1"
+      }
+   ],
+   "env": {
+      "MONGO_CONN": "@mongo_conn",
+      "MONGO_CONN2": "@mongo_conn2",
+      "JWT_SECRET": "@jwt_secret",
+      "EMAIL_USER": "@email_user",
+      "EMAIL_PASSWORD": "@email_password"
+   }
+}
