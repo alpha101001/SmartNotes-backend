@@ -13,10 +13,10 @@
       }
    ],
    "env": {
-      "MONGO_CONN": "@mongo_conn",
-      "MONGO_CONN2": "@mongo_conn2",
-      "JWT_SECRET": "@jwt_secret",
-      "EMAIL_USER": "@email_user",
-      "EMAIL_PASSWORD": "@email_password"
+      "MONGO_CONN": "@MONGO_CONN",
+      "MONGO_CONN2": "@MONGO_CONN2",
+      "JWT_SECRET": "@JWT_SECRET",
+      "EMAIL_USER": "@EMAIL_USER",
+      "EMAIL_PASSWORD": "@EMAIL_PASSWORD"
    }
 }
