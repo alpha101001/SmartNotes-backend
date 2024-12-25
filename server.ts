@@ -18,7 +18,9 @@ app.use(cors(
       credentials: true,
    }
 ));
-
+app.get('/api/hello', (req, res) => {
+   res.send('Hello');
+});
 // Auth routes
 app.use('/api/auth', AuthRouters);
 
