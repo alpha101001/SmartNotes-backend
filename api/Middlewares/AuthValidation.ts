@@ -3,8 +3,18 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 dotenv.config();
+
+interface expressRequest extends Request {
+   body: { name: string; email: string; password: string };
+   headers: { authorization: string };
+   user?: { _id: string; email: string };
+   }
+interface expressResponse extends Response {
+   status(code: number): this;
+   json(body: any): this;
+}
 // validate the sign up request body
-const signUpValidation = (req: Request, res: Response, next: NextFunction): Response | void  => {
+const signUpValidation = (req: expressRequest, res: expressResponse, next: NextFunction): expressResponse | void  => {
    // validate the request body
   const schema = Joi.object({
    // name, email, and password are required
@@ -22,7 +32,7 @@ const signUpValidation = (req: Request, res: Response, next: NextFunction): Resp
 };
 
 // validate the login request body
-const logInValidation = (req: Request, res: Response, next: NextFunction): Response | void  => {
+const logInValidation = (req: expressRequest, res: expressResponse, next: NextFunction): expressResponse | void  => {
   const schema = Joi.object({
     // email and password are required
     email: Joi.string().email().required(),
@@ -36,7 +46,7 @@ const logInValidation = (req: Request, res: Response, next: NextFunction): Respo
    // if no error, continue to the next middleware
   next();
 };
-const authMiddleware = (req: Request, res: Response, next: NextFunction): Response | void  => {
+const authMiddleware = (req: expressRequest, res: expressResponse, next: NextFunction): expressResponse | void  => {
    try {
        // get the token from the request header
      const tokenHeader = req.headers.authorization;
