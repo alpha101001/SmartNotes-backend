@@ -15,5 +15,9 @@ declare global {
          newPassword?: string;
        };
     }
+    interface Response {
+      status?: (code?: number) => Response;
+      json?: (body?: any) => Response;
+    }
   }
 }
