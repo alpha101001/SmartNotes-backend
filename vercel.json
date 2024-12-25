@@ -11,12 +11,5 @@
          "src": "/api/(.*)",
          "dest": "/api/$1"
       }
-   ],
-   "env": {
-      "MONGO_CONN": "@MONGO_CONN",
-      "MONGO_CONN2": "@MONGO_CONN2",
-      "JWT_SECRET": "@JWT_SECRET",
-      "EMAIL_USER": "@EMAIL_USER",
-      "EMAIL_PASSWORD": "@EMAIL_PASSWORD"
-   }
+   ]
 }
