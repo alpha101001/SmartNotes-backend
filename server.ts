@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(cors(
    {
-      origin: 'https://smart-notes-deployment-1.vercel.app/',
+      origin: 'https://smart-notes-deployment-1.vercel.app',
       credentials: true,
    }
 ));
