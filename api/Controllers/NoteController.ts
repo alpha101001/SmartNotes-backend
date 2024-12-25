@@ -1,11 +1,51 @@
 import { Request, Response } from 'express';
 import NoteModel from '../models/Note.ts';
 
+interface CreateNoteRequest extends Request {
+   body: {
+     title: string;
+     content: string;
+     isPinned?: boolean;
+     files?: Array<{ fileName: string; fileUrl: string; fileType: string }>;
+   };
+   user: { _id: string; email: string }; // Extend with user property
+ }
+
+ interface GetNotesRequest extends Request {
+   query: { pinned?: string };
+   user: { _id: string; email: string }; // Extend with user property
+ }
+
+interface GetNoteByIdRequest extends Request {
+  params: { id: string };
+  user: { _id: string; email: string }; // Extend with user property
+}
+ interface UpdateNoteRequest extends Request {
+   params: { id: string };
+   body: {
+     title?: string;
+     content?: string;
+     isPinned?: boolean;
+     files?: Array<{ fileName: string; fileUrl: string; fileType: string }>;
+   };
+   user: { _id: string; email: string };
+ }
+
+ interface DeleteNoteRequest extends Request {
+   params: { id: string };
+   user: { _id: string; email: string };
+ }
+
+ interface SearchNotesRequest extends Request {
+   query: { query: string; pinned?: string };
+   user: { _id: string; email: string };
+ }
+
 /**
  * Create a new note
  * POST /notes
  */
-export const createNote = async (req: Request, res: Response) => {
+export const createNote = async (req: CreateNoteRequest, res: Response) => {
   try {
     const userId = req.user._id;
     // highlight: now we accept `files` array from the body
@@ -48,7 +88,7 @@ export const createNote = async (req: Request, res: Response) => {
  * Get all notes (with optional pinned filter)
  * GET /notes
  */
-export const getNotes = async (req: Request, res: Response) => {
+export const getNotes = async (req: GetNotesRequest, res: Response) => {
   try {
     const userId = req.user._id;
     const { pinned } = req.query;
@@ -77,7 +117,7 @@ export const getNotes = async (req: Request, res: Response) => {
  * Get single note by ID
  * GET /notes/:id
  */
-export const getNoteById = async (req: Request, res: Response) => {
+export const getNoteById = async (req: GetNoteByIdRequest, res: Response) => {
   try {
     const userId = req.user._id;
     const { id } = req.params;
@@ -105,7 +145,7 @@ export const getNoteById = async (req: Request, res: Response) => {
  * Update note
  * PUT /notes/:id
  */
-export const updateNote = async (req: Request, res: Response) => {
+export const updateNote = async (req: UpdateNoteRequest, res: Response) => {
   try {
     const userId = req.user._id;
     const { id } = req.params;
@@ -149,7 +189,7 @@ export const updateNote = async (req: Request, res: Response) => {
  * Delete note
  * DELETE /notes/:id
  */
-export const deleteNote = async (req: Request, res: Response) => {
+export const deleteNote = async (req: DeleteNoteRequest, res: Response) => {
   try {
     const userId = req.user._id;
     const { id } = req.params;
@@ -177,7 +217,7 @@ export const deleteNote = async (req: Request, res: Response) => {
  * Search notes with text index
  * GET /notes/search/query?query=...
  */
-export const searchNotes = async (req: Request, res: Response) => {
+export const searchNotes = async (req: SearchNotesRequest, res: Response) => {
   try {
     const userId = req.user._id;
     const searchQuery = req.query.query?.toString() || '';

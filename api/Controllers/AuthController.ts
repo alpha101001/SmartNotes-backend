@@ -6,6 +6,28 @@ import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
+
+interface SignUpRequest extends Request {
+   body: { name: string; email: string; password: string };
+ }
+
+ interface OTPVerificationRequest extends Request {
+   body: { email: string; otp: string };
+ }
+
+ interface LogInRequest extends Request {
+   body: { email: string; password: string };
+ }
+
+ interface ResetPasswordRequest extends Request {
+   body: { email: string; otp: string; newPassword: string };
+ }
+ interface ForgotPasswordRequest extends Request {
+   body: { email: string };
+ }
+ interface ResendOTPRequest extends Request {
+   body: { email: string };
+ }
 // Configure the mail transporter. We are using node mailer to send emails.
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -21,10 +43,10 @@ const generateOTP = (): string => {
 };
 
 // ============== SIGNUP ==============
-const signUp = async (req: Request, res: Response) => {
+const signUp = async (req: SignUpRequest, res: Response) => {
   try {
    //from the body we are getting name, email and password
-    const { name, email, password } = req.body;
+    const { name, email, password } = req?.body;
       //check if the user already exists
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
@@ -73,7 +95,7 @@ const signUp = async (req: Request, res: Response) => {
 };
 
 // ============== VERIFY OTP ==============
-const verifyOTP = async (req: Request, res: Response) => {
+const verifyOTP = async (req: OTPVerificationRequest, res: Response) => {
   try {
    //from the body we are getting email and otp
     const { email, otp } = req.body;
@@ -103,7 +125,7 @@ const verifyOTP = async (req: Request, res: Response) => {
 };
 
 // ============== RESEND OTP ==============
-const resendOTP = async (req: Request, res: Response) => {
+const resendOTP = async (req: ResendOTPRequest, res: Response) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -147,7 +169,7 @@ const resendOTP = async (req: Request, res: Response) => {
 };
 
 // ============== LOGIN ==============
-const logIn = async (req: Request, res: Response) => {
+const logIn = async (req: LogInRequest, res: Response) => {
   try {
    //from the body we are getting email and password
     const { email, password } = req.body;
@@ -193,7 +215,7 @@ const logIn = async (req: Request, res: Response) => {
 };
 
 // ============== FORGOT PASSWORD ==============
-const forgotPassword = async (req: Request, res: Response) => {
+const forgotPassword = async (req: ForgotPasswordRequest, res: Response) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -228,7 +250,7 @@ const forgotPassword = async (req: Request, res: Response) => {
 };
 
 // ============== RESET PASSWORD ==============
-const resetPassword = async (req: Request, res: Response) => {
+const resetPassword = async (req: ResetPasswordRequest, res: Response) => {
   try {
       // Get the email, OTP and new password from the request body
     const { email, otp, newPassword } = req.body;
