@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
+
 import UserModel from '../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import { Request, Response } from 'express';
 dotenv.config();
 
 // interface SignUpRequest extends Request {
