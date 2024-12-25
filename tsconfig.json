@@ -1,19 +1,20 @@
 {
    "compilerOptions": {
-     "module": "NodeNext",
+     "module": "CommonJS",
      "target": "ES2022",
-     "moduleResolution": "NodeNext",
+     "moduleResolution": "Node",
      "esModuleInterop": true,
      "skipLibCheck": true,
-     "allowImportingTsExtensions": true,
-     "noEmit": true,
-     "typeRoots": ["./@types","./node_modules/@types"],
+
+     "noEmit": false,
+     "outDir": "dist",
+     "typeRoots": ["./node_modules/@types"],
      "resolveJsonModule": true
    },
    "include": [
      "server.ts",
      "api/**/*.ts",          // Include all files under the `api` directory
-    "@types/**/*.d.ts"      // Include global type definitions
+
    ],
    "exclude": ["node_modules"]
  }

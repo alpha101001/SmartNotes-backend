@@ -1,7 +1,7 @@
 
 import routers from 'express';
-import { createNote, getNotes, getNoteById, updateNote, deleteNote, searchNotes } from '../Controllers/NoteController.ts';
-import { authMiddleware } from '../Middlewares/AuthValidation.ts';
+import { createNote, getNotes, getNoteById, updateNote, deleteNote, searchNotes } from '../Controllers/NoteController';
+import { authMiddleware } from '../Middlewares/AuthValidation';
 const router = routers.Router();
 // Example JWT auth middleware
 

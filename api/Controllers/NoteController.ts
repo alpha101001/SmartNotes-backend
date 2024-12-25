@@ -1,55 +1,55 @@
 import { Request, Response } from 'express';
-import NoteModel from '../models/Note.ts';
+import NoteModel from '../models/Note';
 
-interface CreateNoteRequest extends Request {
-   body: {
-     title: string;
-     content: string;
-     isPinned?: boolean;
-     files?: Array<{ fileName: string; fileUrl: string; fileType: string }>;
-   };
-   user: { _id: string; email: string }; // Extend with user property
- }
+// interface CreateNoteRequest extends Request {
+//    body: {
+//      title: string;
+//      content: string;
+//      isPinned?: boolean;
+//      files?: Array<{ fileName: string; fileUrl: string; fileType: string }>;
+//    };
+//    user: { _id: string; email: string }; // Extend with user property
+//  }
 
- interface GetNotesRequest extends Request {
-   query: { pinned?: string };
-   user: { _id: string; email: string }; // Extend with user property
- }
+//  interface GetNotesRequest extends Request {
+//    query: { pinned?: string };
+//    user: { _id: string; email: string }; // Extend with user property
+//  }
 
-interface GetNoteByIdRequest extends Request {
-  params: { id: string };
-  user: { _id: string; email: string }; // Extend with user property
-}
- interface UpdateNoteRequest extends Request {
-   params: { id: string };
-   body: {
-     title?: string;
-     content?: string;
-     isPinned?: boolean;
-     files?: Array<{ fileName: string; fileUrl: string; fileType: string }>;
-   };
-   user: { _id: string; email: string };
- }
+// interface GetNoteByIdRequest extends Request {
+//   params: { id: string };
+//   user: { _id: string; email: string }; // Extend with user property
+// }
+//  interface UpdateNoteRequest extends Request {
+//    params: { id: string };
+//    body: {
+//      title?: string;
+//      content?: string;
+//      isPinned?: boolean;
+//      files?: Array<{ fileName: string; fileUrl: string; fileType: string }>;
+//    };
+//    user: { _id: string; email: string };
+//  }
 
- interface DeleteNoteRequest extends Request {
-   params: { id: string };
-   user: { _id: string; email: string };
- }
+//  interface DeleteNoteRequest extends Request {
+//    params: { id: string };
+//    user: { _id: string; email: string };
+//  }
 
- interface SearchNotesRequest extends Request {
-   query: { query: string; pinned?: string };
-   user: { _id: string; email: string };
- }
- interface expressResponse extends Response {
-   status(code: number): this;
-   json(body: any): this;
- }
+//  interface SearchNotesRequest extends Request {
+//    query: { query: string; pinned?: string };
+//    user: { _id: string; email: string };
+//  }
+//  interface expressResponse extends Response {
+//    status(code: number): this;
+//    json(body: any): this;
+//  }
 
 /**
  * Create a new note
  * POST /notes
  */
-export const createNote = async (req: CreateNoteRequest, res: expressResponse) => {
+export const createNote = async (req, res: Response) => {
   try {
     const userId = req.user._id;
     // highlight: now we accept `files` array from the body
@@ -92,7 +92,7 @@ export const createNote = async (req: CreateNoteRequest, res: expressResponse) =
  * Get all notes (with optional pinned filter)
  * GET /notes
  */
-export const getNotes = async (req: GetNotesRequest, res: expressResponse) => {
+export const getNotes = async (req, res: Response) => {
   try {
     const userId = req.user._id;
     const { pinned } = req.query;
@@ -121,7 +121,7 @@ export const getNotes = async (req: GetNotesRequest, res: expressResponse) => {
  * Get single note by ID
  * GET /notes/:id
  */
-export const getNoteById = async (req: GetNoteByIdRequest, res: expressResponse) => {
+export const getNoteById = async (req, res: Response) => {
   try {
     const userId = req.user._id;
     const { id } = req.params;
@@ -149,7 +149,7 @@ export const getNoteById = async (req: GetNoteByIdRequest, res: expressResponse)
  * Update note
  * PUT /notes/:id
  */
-export const updateNote = async (req: UpdateNoteRequest, res: expressResponse) => {
+export const updateNote = async (req, res: Response) => {
   try {
     const userId = req.user._id;
     const { id } = req.params;
@@ -193,7 +193,7 @@ export const updateNote = async (req: UpdateNoteRequest, res: expressResponse) =
  * Delete note
  * DELETE /notes/:id
  */
-export const deleteNote = async (req: DeleteNoteRequest, res: expressResponse) => {
+export const deleteNote = async (req, res:Response) => {
   try {
     const userId = req.user._id;
     const { id } = req.params;
@@ -221,7 +221,7 @@ export const deleteNote = async (req: DeleteNoteRequest, res: expressResponse) =
  * Search notes with text index
  * GET /notes/search/query?query=...
  */
-export const searchNotes = async (req: SearchNotesRequest, res: expressResponse) => {
+export const searchNotes = async (req, res: Response) => {
   try {
     const userId = req.user._id;
     const searchQuery = req.query.query?.toString() || '';

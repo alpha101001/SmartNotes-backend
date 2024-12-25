@@ -1,7 +1,7 @@
 // import { Request, Response } from 'express';
 import routers from 'express';
-import { signUp, verifyOTP, resendOTP, logIn, forgotPassword, resetPassword } from '../Controllers/AuthController.ts';
-import { signUpValidation, logInValidation } from '../Middlewares/AuthValidation.ts';
+import { signUp, verifyOTP, resendOTP, logIn, forgotPassword, resetPassword } from '../Controllers/AuthController';
+import { signUpValidation, logInValidation } from '../Middlewares/AuthValidation';
 const router = routers.Router();
 
 // Register
