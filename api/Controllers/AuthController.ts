@@ -28,6 +28,10 @@ interface SignUpRequest extends Request {
  interface ResendOTPRequest extends Request {
    body: { email: string };
  }
+ interface expressResponse extends Response {
+   status(code: number): this;
+   json(body: any): this;
+ }
 // Configure the mail transporter. We are using node mailer to send emails.
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -43,7 +47,7 @@ const generateOTP = (): string => {
 };
 
 // ============== SIGNUP ==============
-const signUp = async (req: SignUpRequest, res: Response) => {
+const signUp = async (req: SignUpRequest, res: expressResponse) => {
   try {
    //from the body we are getting name, email and password
     const { name, email, password } = req?.body;
@@ -95,7 +99,7 @@ const signUp = async (req: SignUpRequest, res: Response) => {
 };
 
 // ============== VERIFY OTP ==============
-const verifyOTP = async (req: OTPVerificationRequest, res: Response) => {
+const verifyOTP = async (req: OTPVerificationRequest, res: expressResponse) => {
   try {
    //from the body we are getting email and otp
     const { email, otp } = req.body;
@@ -125,7 +129,7 @@ const verifyOTP = async (req: OTPVerificationRequest, res: Response) => {
 };
 
 // ============== RESEND OTP ==============
-const resendOTP = async (req: ResendOTPRequest, res: Response) => {
+const resendOTP = async (req: ResendOTPRequest, res: expressResponse) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -169,7 +173,7 @@ const resendOTP = async (req: ResendOTPRequest, res: Response) => {
 };
 
 // ============== LOGIN ==============
-const logIn = async (req: LogInRequest, res: Response) => {
+const logIn = async (req: LogInRequest, res: expressResponse) => {
   try {
    //from the body we are getting email and password
     const { email, password } = req.body;
@@ -215,7 +219,7 @@ const logIn = async (req: LogInRequest, res: Response) => {
 };
 
 // ============== FORGOT PASSWORD ==============
-const forgotPassword = async (req: ForgotPasswordRequest, res: Response) => {
+const forgotPassword = async (req: ForgotPasswordRequest, res: expressResponse) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -250,7 +254,7 @@ const forgotPassword = async (req: ForgotPasswordRequest, res: Response) => {
 };
 
 // ============== RESET PASSWORD ==============
-const resetPassword = async (req: ResetPasswordRequest, res: Response) => {
+const resetPassword = async (req: ResetPasswordRequest, res: expressResponse) => {
   try {
       // Get the email, OTP and new password from the request body
     const { email, otp, newPassword } = req.body;
