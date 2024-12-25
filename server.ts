@@ -11,7 +11,12 @@ dotenv.config();
 const PORT = process.env.PORT || 8080;
 // Middlewares
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(
+   {
+      origin: 'https://smart-notes-deployment-1.vercel.app/',
+      credentials: true,
+   }
+));
 
 // Auth routes
 app.use('/api/auth', AuthRouters);
