@@ -6,7 +6,8 @@
    "scripts": {
       "dev": "nodemon --exec ts-node server.ts",
       "start": "node server.ts",
-      "build": "tsc"
+      "build": "tsc",
+      "tsc": "tsc"
    },
    "author": "Avishek Roy",
    "license": "MIT",
