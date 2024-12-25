@@ -5,7 +5,8 @@
    "main": "server.ts",
    "scripts": {
       "dev": "nodemon --exec 'node --loader ts-node/esm' server.ts",
-      "start": "node server.ts"
+      "start": "node server.ts",
+      "build": "tsc"
    },
    "author": "Avishek Roy",
    "license": "MIT",
