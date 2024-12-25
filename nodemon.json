@@ -1,0 +1,10 @@
+{
+   "watch": [
+      "server.ts",
+      "Controllers",
+      "Routes",
+      "Middlewares"
+   ],
+   "ext": "ts",
+   "exec": "ts-node --esm server.ts"
+}

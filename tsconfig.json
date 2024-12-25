@@ -1,0 +1,20 @@
+{
+   "compilerOptions": {
+     "module": "ESNext",
+     "target": "ES2022",
+     "moduleResolution": "NodeNext",
+     "esModuleInterop": true,
+     "skipLibCheck": true,
+     "allowImportingTsExtensions": true,
+     "noEmit": true,
+     "typeRoots": ["./@types","./node_modules/@types"],
+     "resolveJsonModule": true
+   },
+   "include": [
+     "server.ts",
+     "Routes/**/*.ts",
+     "Controllers/**/*.ts",
+     "Middlewares/**/*.ts"
+   ],
+   "exclude": ["node_modules"]
+ }
