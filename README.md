@@ -1,0 +1,2 @@
+# SmartNotes-backend
+self-project
