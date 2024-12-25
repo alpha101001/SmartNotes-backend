@@ -32,6 +32,15 @@ dotenv.config();
 //    status(code: number): this;
 //    json(body: any): this;
 //  }
+interface SignUpBody {
+   name: string;
+   email: string;
+   password: string;
+ }
+ interface LoginBody {
+   email: string;
+   password: string;
+ }
 // Configure the mail transporter. We are using node mailer to send emails.
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -47,7 +56,7 @@ const generateOTP = (): string => {
 };
 
 // ============== SIGNUP ==============
-const signUp = async (req:Request, res: Response) => {
+const signUp = async (req:Request<{}, {}, SignUpBody>, res: Response) => {
   try {
    //from the body we are getting name, email and password
     const { name, email, password } = req?.body;
@@ -98,8 +107,12 @@ const signUp = async (req:Request, res: Response) => {
   }
 };
 
+interface VerifyOTPBody {
+   email: string;
+   otp: string;
+   }
 // ============== VERIFY OTP ==============
-const verifyOTP = async (req: Request, res:Response) => {
+const verifyOTP = async (req:  Request<{}, {}, VerifyOTPBody>, res:Response) => {
   try {
    //from the body we are getting email and otp
     const { email, otp } = req.body;
@@ -128,8 +141,12 @@ const verifyOTP = async (req: Request, res:Response) => {
   }
 };
 
+interface ResendOTPBody {
+   email: string;
+   }
+
 // ============== RESEND OTP ==============
-const resendOTP = async (req: Request, res: Response) => {
+const resendOTP = async (req:  Request<{}, {}, ResendOTPBody>, res: Response) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -173,7 +190,7 @@ const resendOTP = async (req: Request, res: Response) => {
 };
 
 // ============== LOGIN ==============
-const logIn = async (req: Request, res: Response) => {
+const logIn = async (req:  Request<{}, {}, LoginBody>,res: Response) => {
   try {
    //from the body we are getting email and password
     const { email, password } = req.body;
@@ -218,8 +235,12 @@ const logIn = async (req: Request, res: Response) => {
   }
 };
 
+interface ForgotPasswordBody {
+   email: string;
+   }
+
 // ============== FORGOT PASSWORD ==============
-const forgotPassword = async (req: Request, res: Response) => {
+const forgotPassword = async (req:  Request<{}, {}, ForgotPasswordBody>, res: Response) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -253,8 +274,13 @@ const forgotPassword = async (req: Request, res: Response) => {
   }
 };
 
+interface ResetPasswordBody {
+   email: string;
+   otp: string;
+   newPassword: string;
+   }
 // ============== RESET PASSWORD ==============
-const resetPassword = async (req: Request, res: Response) => {
+const resetPassword = async (req:  Request<{}, {}, ResetPasswordBody>, res: Response) => {
   try {
       // Get the email, OTP and new password from the request body
     const { email, otp, newPassword } = req.body;

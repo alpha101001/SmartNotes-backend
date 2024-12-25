@@ -1,20 +1,20 @@
 import Joi from 'joi';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import {  Request, Response } from 'express';
+import {  NextFunction, Request, Response } from 'express';
 dotenv.config();
 
-interface expressRequest extends Request {
-   body: { name: string; email: string; password: string };
-   headers: { authorization: string };
-   user?: { _id: string; email: string };
-   }
-interface expressResponse extends Response {
-   status(code: number): this;
-   json(body: any): this;
-}
+// interface expressRequest extends Request {
+//    body: { name: string; email: string; password: string };
+//    headers: { authorization: string };
+//    user?: { _id: string; email: string };
+//    }
+// interface expressResponse extends Response {
+//    status(code: number): this;
+//    json(body: any): this;
+// }
 // validate the sign up request body
-const signUpValidation = (req: expressRequest, res: expressResponse, next): expressResponse | void  => {
+const signUpValidation = (req: Request, res: Response, next: NextFunction)  => {
    // validate the request body
   const schema = Joi.object({
    // name, email, and password are required
@@ -32,7 +32,7 @@ const signUpValidation = (req: expressRequest, res: expressResponse, next): expr
 };
 
 // validate the login request body
-const logInValidation = (req: expressRequest, res: expressResponse, next): expressResponse | void  => {
+const logInValidation = (req: Request, res: Response, next: NextFunction)  => {
   const schema = Joi.object({
     // email and password are required
     email: Joi.string().email().required(),
@@ -46,7 +46,7 @@ const logInValidation = (req: expressRequest, res: expressResponse, next): expre
    // if no error, continue to the next middleware
   next();
 };
-const authMiddleware = (req: expressRequest, res: expressResponse, next): expressResponse | void  => {
+const authMiddleware = (req: Request, res: Response, next: NextFunction)  => {
    try {
        // get the token from the request header
      const tokenHeader = req.headers.authorization;
@@ -64,7 +64,7 @@ const authMiddleware = (req: expressRequest, res: expressResponse, next): expres
 
 
      // attach user info to req
-     req.user = { _id: decoded._id, email: decoded.email };
+     (req as any).user = { _id: decoded._id, email: decoded.email };
      // continue to the next middleware
      next();
    } catch (error) {
