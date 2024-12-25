@@ -12,9 +12,8 @@
    },
    "include": [
      "server.ts",
-     "Routes/**/*.ts",
-     "Controllers/**/*.ts",
-     "Middlewares/**/*.ts"
+     "api/**/*.ts",          // Include all files under the `api` directory
+    "@types/**/*.d.ts"      // Include global type definitions
    ],
    "exclude": ["node_modules"]
  }
