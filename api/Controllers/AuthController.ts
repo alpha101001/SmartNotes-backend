@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserModel from '../models/User.ts';
+import UserModel from '../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -7,31 +7,31 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
 
-interface SignUpRequest extends Request {
-   body: { name: string; email: string; password: string };
- }
+// interface SignUpRequest extends Request {
+//    body: { name: string; email: string; password: string };
+//  }
 
- interface OTPVerificationRequest extends Request {
-   body: { email: string; otp: string };
- }
+//  interface OTPVerificationRequest extends Request {
+//    body: { email: string; otp: string };
+//  }
 
- interface LogInRequest extends Request {
-   body: { email: string; password: string };
- }
+//  interface LogInRequest extends Request {
+//    body: { email: string; password: string };
+//  }
 
- interface ResetPasswordRequest extends Request {
-   body: { email: string; otp: string; newPassword: string };
- }
- interface ForgotPasswordRequest extends Request {
-   body: { email: string };
- }
- interface ResendOTPRequest extends Request {
-   body: { email: string };
- }
- interface expressResponse extends Response {
-   status(code: number): this;
-   json(body: any): this;
- }
+//  interface ResetPasswordRequest extends Request {
+//    body: { email: string; otp: string; newPassword: string };
+//  }
+//  interface ForgotPasswordRequest extends Request {
+//    body: { email: string };
+//  }
+//  interface ResendOTPRequest extends Request {
+//    body: { email: string };
+//  }
+//  interface expressResponse extends Response {
+//    status(code: number): this;
+//    json(body: any): this;
+//  }
 // Configure the mail transporter. We are using node mailer to send emails.
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -47,7 +47,7 @@ const generateOTP = (): string => {
 };
 
 // ============== SIGNUP ==============
-const signUp = async (req: SignUpRequest, res: expressResponse) => {
+const signUp = async (req:Request, res: Response) => {
   try {
    //from the body we are getting name, email and password
     const { name, email, password } = req?.body;
@@ -99,7 +99,7 @@ const signUp = async (req: SignUpRequest, res: expressResponse) => {
 };
 
 // ============== VERIFY OTP ==============
-const verifyOTP = async (req: OTPVerificationRequest, res: expressResponse) => {
+const verifyOTP = async (req: Request, res:Response) => {
   try {
    //from the body we are getting email and otp
     const { email, otp } = req.body;
@@ -129,7 +129,7 @@ const verifyOTP = async (req: OTPVerificationRequest, res: expressResponse) => {
 };
 
 // ============== RESEND OTP ==============
-const resendOTP = async (req: ResendOTPRequest, res: expressResponse) => {
+const resendOTP = async (req: Request, res: Response) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -173,7 +173,7 @@ const resendOTP = async (req: ResendOTPRequest, res: expressResponse) => {
 };
 
 // ============== LOGIN ==============
-const logIn = async (req: LogInRequest, res: expressResponse) => {
+const logIn = async (req: Request, res: Response) => {
   try {
    //from the body we are getting email and password
     const { email, password } = req.body;
@@ -219,7 +219,7 @@ const logIn = async (req: LogInRequest, res: expressResponse) => {
 };
 
 // ============== FORGOT PASSWORD ==============
-const forgotPassword = async (req: ForgotPasswordRequest, res: expressResponse) => {
+const forgotPassword = async (req: Request, res: Response) => {
   try {
     // Get the email from the request body
     const { email } = req.body;
@@ -254,7 +254,7 @@ const forgotPassword = async (req: ForgotPasswordRequest, res: expressResponse) 
 };
 
 // ============== RESET PASSWORD ==============
-const resetPassword = async (req: ResetPasswordRequest, res: expressResponse) => {
+const resetPassword = async (req: Request, res: Response) => {
   try {
       // Get the email, OTP and new password from the request body
     const { email, otp, newPassword } = req.body;

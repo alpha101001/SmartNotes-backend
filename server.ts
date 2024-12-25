@@ -1,10 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import AuthRouters from './api/Routes/AuthRouters.ts';
-import NotesRouters from './api/Routes/NotesRouters.ts';
+import AuthRouters from './api/Routes/AuthRouters';
+import NotesRouters from './api/Routes/NotesRouters';
 import dotenv from 'dotenv';
-import './api/models/db.ts';
+import './api/models/db';
 
 const app = express();
 dotenv.config();
@@ -18,7 +18,7 @@ app.use(cors(
       credentials: true,
    }
 ));
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
    res.send('Hello');
 });
 // Auth routes
