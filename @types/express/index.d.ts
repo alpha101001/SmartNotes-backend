@@ -16,8 +16,8 @@ declare global {
        };
     }
     interface Response {
-      status?: (code?: number) => Response;
-      json?: (body?: any) => Response;
+      status(code: number): this;
+      json(data: any): this;
     }
   }
 }
