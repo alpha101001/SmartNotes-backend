@@ -1,11 +1,9 @@
 {
    "version": 2,
-   "buildCommand": "pnpm run build",
-   "outputDirectory": "dist",
-   "routes": [
+   "rewrites": [
       {
-         "src": "/api/(.*)",
-         "dest": "/api/$1"
+         "source": "/(.*)",
+         "destination": "/api"
       }
    ]
 }

@@ -8,7 +8,7 @@ import './api/models/db';
 
 const app = express();
 dotenv.config();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 // Middlewares
 app.use(bodyParser.json());
 app.use(cors(
@@ -18,7 +18,7 @@ app.use(cors(
       credentials: true,
    }
 ));
-app.get('/hello', (req, res) => {
+app.get('/', (req, res) => {
    res.send('Hello');
 });
 // Auth routes
