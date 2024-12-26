@@ -5,7 +5,7 @@
    "main": "server.ts",
    "scripts": {
       "dev": "nodemon --exec ts-node server.ts",
-      "start": "node server.ts",
+      "start": "node dist/server.js",
       "build": "tsc",
       "tsc": "tsc"
    },
@@ -37,5 +37,9 @@
       "nodemon": "^3.1.9",
       "ts-node": "^10.9.2",
       "typescript": "^5.7.2"
-   }
+   },
+   "engines": {
+      "node": ">=16.x"
+   },
+   "packageManager": "pnpm@9.15.0"
 }
